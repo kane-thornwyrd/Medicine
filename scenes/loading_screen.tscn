@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/fonts/DigitalDisco-Thin.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/images/quarter_circle.png" type="Texture" id=2]
+[ext_resource path="res://assets/transition.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+export var is_loading:bool = true
+
+var new_scene_ready:bool = false
+
+func _ready() -> void:
+  $transition_layer.in_trans()
+  yield($transition_layer, \"animation_finished\")
+  goto_next_scene()
+
+func next_scene() -> void:
+  if not is_loading and not new_scene_ready:
+    new_scene_ready = true
+    REG.transition_to(\"main_menu\", $transition_layer)
+
+func goto_next_scene() -> void:
+  if is_loading:
+    yield(self.get_tree().create_timer(1.0), \"timeout\")
+    goto_next_scene()
+  else:
+    next_scene()"
+
+[sub_resource type="DynamicFont" id=2]
+size = 45
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "loading"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("quarter_circle:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 360.0 ]
+}
+
+[node name="loading_screen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="ColorRect/CenterContainer"]
+margin_left = 429.0
+margin_top = 277.0
+margin_right = 594.0
+margin_bottom = 323.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Loading..."
+
+[node name="quarter_circle" type="Sprite" parent="ColorRect/CenterContainer"]
+position = Vector2( 503.279, 298.904 )
+rotation = 5.98635
+texture = ExtResource( 2 )
+offset = Vector2( 64, 64 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect/CenterContainer"]
+autoplay = "loading"
+anims/loading = SubResource( 3 )
+
+[node name="transition_layer" parent="." instance=ExtResource( 3 )]

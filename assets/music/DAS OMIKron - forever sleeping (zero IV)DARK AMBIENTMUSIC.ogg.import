@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC.ogg-374a6995bb9c3d3f721ce155d4d7f6d6.oggstr"
+
+[deps]
+
+source_file="res://assets/music/DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC.ogg"
+dest_files=[ "res://.import/DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC.ogg-374a6995bb9c3d3f721ce155d4d7f6d6.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

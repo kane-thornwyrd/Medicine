@@ -1,0 +1,42 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="jam WE 20190708"
+run/main_scene="res://main.tscn"
+boot_splash/image="res://splash.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://icon.png"
+
+[autoload]
+
+REG="*res://script/scene_registery.gd"
+
+[display]
+
+window/size/fullscreen=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[gui]
+
+theme/custom="res://assets/medical.tres"
+
+[rendering]
+
+environment/default_clear_color=Color( 0, 0, 0, 1 )
+environment/default_environment="res://default_env.tres"

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/medical.tres" type="Theme" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+export var transition_path:NodePath
+onready var transitioner:CanvasLayer = self.get_node(transition_path)
+
+func _ready() -> void:
+# warning-ignore:return_value_discarded
+  self.connect(\"pressed\", self, \"_go_main_menu\")
+
+func _go_main_menu() -> void:
+  REG.transition_to(\"main_menu\", transitioner)"
+
+[node name="Button" type="Button"]
+margin_top = 18.0
+margin_right = 500.0
+margin_bottom = 62.0
+theme = ExtResource( 1 )
+text = "back"
+script = SubResource( 1 )
+transition_path = NodePath("../../transition_layer")
