@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=4 format=2]
+[gd_resource type="TileSet" load_steps=6 format=2]
 
 [ext_resource path="res://assets/images/tile.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/tile.obscura.png" type="Texture" id=2]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 0, -43, 64.0274, -11, 0, 21.9222, -64, -11 )
@@ -8,6 +9,10 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 outlines = [ PoolVector2Array( 0, -43, 64.0274, -11, 0, 21.9222, -64, -11 ) ]
 
 [sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 64, 16, 128, 48, 64, 80, 0, 48 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 
 [resource]
 0/name = "basetile"
@@ -27,3 +32,14 @@ outlines = [ PoolVector2Array( 0, -43, 64.0274, -11, 0, 21.9222, -64, -11 ) ]
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
+1/name = "tile.obscura.png 1"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, -16 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 128, 104 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, -16 )
+1/navigation = SubResource( 3 )
+1/shapes = [  ]
+1/z_index = 0

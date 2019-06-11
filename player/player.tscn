@@ -172,6 +172,7 @@ tracks/0/keys = {
 }
 
 [node name="player" type="KinematicBody2D"]
+motion/sync_to_physics = true
 script = ExtResource( 1 )
 
 [node name="sprite" type="Sprite" parent="."]
