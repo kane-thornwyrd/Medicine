@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://levels/room0.gd" type="Script" id=1]
+[ext_resource path="res://assets/tilesets/base_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://levels/grid.gd" type="Script" id=3]
+[ext_resource path="res://levels/YSort.gd" type="Script" id=4]
+[ext_resource path="res://assets/slab.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/pill.tscn" type="PackedScene" id=7]
+
+[node name="room1" type="Node2D"]
+script = ExtResource( 1 )
+player_path = NodePath("../room1/nav2D/grid/YSort/player")
+tilemap_path = NodePath("../room1/nav2D/grid")
+
+[node name="nav2D" type="Navigation2D" parent="."]
+
+[node name="grid" type="TileMap" parent="nav2D"]
+mode = 1
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 128, 64 )
+format = 1
+script = ExtResource( 3 )
+child_container_path = NodePath("../../../room1/nav2D/grid/YSort")
+nav2D_path = NodePath("../../../room1/nav2D")
+
+[node name="camera" type="Camera2D" parent="nav2D/grid"]
+position = Vector2( 254.602, 253.469 )
+current = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+offset_v = -1.0
+drag_margin_left = 0.01
+drag_margin_right = 0.01
+drag_margin_bottom = 0.01
+
+[node name="YSort" type="YSort" parent="nav2D/grid"]
+script = ExtResource( 4 )
+
+[node name="slab2" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 192.754, 66.2977 )
+
+[node name="slab" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 445.668, 192.754 )
+
+[node name="player" parent="nav2D/grid/YSort" instance=ExtResource( 6 )]
+position = Vector2( 312.22, 305.547 )
+motion/sync_to_physics = true
+
+[node name="pill" parent="nav2D/grid/YSort" instance=ExtResource( 7 )]
+position = Vector2( 573.759, 186.689 )
+[connection signal="lose" from="nav2D/grid" to="." method="_on_grid_lose"]
+[connection signal="win" from="nav2D/grid" to="." method="_on_grid_win"]

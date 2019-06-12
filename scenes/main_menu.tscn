@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/insanity.tres" type="Theme" id=1]
+[ext_resource path="res://assets/insanity_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/medical.tres" type="Theme" id=2]
 [ext_resource path="res://assets/music/river.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/transition.tscn" type="PackedScene" id=4]
@@ -38,7 +38,7 @@ func _ready() -> void:
 func _go_options() -> void:
   REG.transition_to(\"options\", transitioner)"
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Button
 
 export var transition_path:NodePath
@@ -52,7 +52,7 @@ func _ready() -> void:
 func _go_credits() -> void:
   REG.transition_to(\"credits\", transitioner)"
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=7]
 script/source = "extends Button
 
 export var transition_path:NodePath
@@ -94,30 +94,31 @@ margin_right = -40.0
 margin_bottom = -40.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer2/CenterContainer"]
-margin_left = 406.0
-margin_top = 147.0
-margin_right = 538.0
-margin_bottom = 373.0
+margin_left = 411.0
+margin_top = 167.0
+margin_right = 532.0
+margin_bottom = 352.0
 alignment = 1
 
 [node name="Title" type="Label" parent="CanvasLayer2/CenterContainer/VBoxContainer"]
-margin_right = 132.0
-margin_bottom = 50.0
+margin_right = 121.0
+margin_bottom = 53.0
 theme = ExtResource( 1 )
-text = "DRUGS"
+text = "MEDICINE"
 align = 1
+uppercase = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer2/CenterContainer/VBoxContainer"]
-margin_top = 50.0
-margin_right = 132.0
-margin_bottom = 226.0
+margin_top = 53.0
+margin_right = 121.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 alignment = 2
 
 [node name="play" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_right = 132.0
+margin_right = 121.0
 margin_bottom = 44.0
 focus_neighbour_bottom = NodePath("../options")
 focus_next = NodePath("../options")
@@ -126,11 +127,12 @@ theme = ExtResource( 2 )
 action_mode = 0
 text = "Play"
 script = SubResource( 2 )
-transition_path = NodePath("")
+transition_path = NodePath("../../../../../transition_layer")
 
 [node name="options" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
+visible = false
 margin_top = 44.0
-margin_right = 132.0
+margin_right = 121.0
 margin_bottom = 88.0
 focus_neighbour_top = NodePath("../play")
 focus_neighbour_bottom = NodePath("../credits")
@@ -141,12 +143,12 @@ theme = ExtResource( 2 )
 action_mode = 0
 text = "Options"
 script = SubResource( 3 )
-transition_path = NodePath("")
+transition_path = NodePath("../../../../../transition_layer")
 
 [node name="credits" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_top = 88.0
-margin_right = 132.0
-margin_bottom = 132.0
+margin_top = 44.0
+margin_right = 121.0
+margin_bottom = 88.0
 focus_neighbour_top = NodePath("../options")
 focus_neighbour_bottom = NodePath("../quit")
 focus_next = NodePath("../quit")
@@ -155,13 +157,13 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 action_mode = 0
 text = "Credits"
-script = SubResource( 4 )
-transition_path = NodePath("")
+script = SubResource( 6 )
+transition_path = NodePath("../../../../../transition_layer")
 
 [node name="quit" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_top = 132.0
-margin_right = 132.0
-margin_bottom = 176.0
+margin_top = 88.0
+margin_right = 121.0
+margin_bottom = 132.0
 focus_neighbour_top = NodePath("../credits")
 focus_neighbour_bottom = NodePath("../play")
 focus_next = NodePath("../play")
@@ -170,8 +172,8 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 action_mode = 0
 text = "Quit"
-script = SubResource( 5 )
-transition_path = NodePath("")
+script = SubResource( 7 )
+transition_path = NodePath("../../../../../transition_layer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )

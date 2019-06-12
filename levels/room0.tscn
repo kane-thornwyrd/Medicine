@@ -25,16 +25,6 @@ script = ExtResource( 3 )
 child_container_path = NodePath("YSort")
 nav2D_path = NodePath("..")
 
-[node name="camera" type="Camera2D" parent="nav2D/grid"]
-position = Vector2( 254.602, 253.469 )
-current = true
-drag_margin_h_enabled = false
-drag_margin_v_enabled = false
-offset_v = -1.0
-drag_margin_left = 0.01
-drag_margin_right = 0.01
-drag_margin_bottom = 0.01
-
 [node name="YSort" type="YSort" parent="nav2D/grid"]
 script = ExtResource( 4 )
 

@@ -1,4 +1,5 @@
 extends Node2D
+class_name Room
 
 signal lose
 signal win
@@ -6,9 +7,6 @@ signal player_available(player)
 
 export var player_path:NodePath
 onready var player = get_node(player_path)
-
-export var viewport_path:NodePath
-onready var viewport = get_node(viewport_path)
 
 export var tilemap_path:NodePath
 onready var tilemap = get_node(tilemap_path)

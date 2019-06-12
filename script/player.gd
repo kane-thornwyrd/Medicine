@@ -18,6 +18,7 @@ var target_direction = Vector2()
 var pos_on_grid:Vector2
 var is_moving:bool = false
 var is_winning:bool = false
+var is_lost:bool = false
 var is_moving_by_touch:bool = false
 var type
 var animation_dir
@@ -63,6 +64,11 @@ func _physics_process(delta:float) -> void:
     self.position = self.move_and_slide(world_target_pos, Vector2.ZERO,true, 0,0.785398,false)
     yield(anim_player, "animation_finished")
     is_moving = false
+
+  elif is_lost:
+    anim_player.play("die")
+    yield(anim_player, "animation_finished")
+    self.queue_free()
 
   elif is_winning:
     anim_player.play("exit")

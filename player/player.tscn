@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://script/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/hero.png" type="Texture" id=2]
@@ -7,8 +7,22 @@
 radius = 20.0
 height = 40.0
 
-[sub_resource type="Animation" id=2]
-resource_name = "exit"
+[sub_resource type="Animation" id=12]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=13]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -47,8 +61,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "still ne"
+[sub_resource type="Animation" id=14]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -63,8 +76,7 @@ tracks/0/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "still nw"
+[sub_resource type="Animation" id=15]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -79,8 +91,7 @@ tracks/0/keys = {
 "values": [ 10 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "still se"
+[sub_resource type="Animation" id=16]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -95,8 +106,7 @@ tracks/0/keys = {
 "values": [ 7 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "still sw"
+[sub_resource type="Animation" id=17]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -111,7 +121,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=18]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -126,7 +136,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 9, 11, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=19]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -141,7 +151,7 @@ tracks/0/keys = {
 "values": [ 3, 5, 3, 5, 3, 4 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=20]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -156,7 +166,7 @@ tracks/0/keys = {
 "values": [ 6, 8, 6, 8 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -187,12 +197,13 @@ position = Vector2( 0, -32 )
 shape = SubResource( 1 )
 
 [node name="anim_player" type="AnimationPlayer" parent="."]
-anims/exit = SubResource( 2 )
-"anims/still ne" = SubResource( 3 )
-"anims/still nw" = SubResource( 4 )
-"anims/still se" = SubResource( 5 )
-"anims/still sw" = SubResource( 6 )
-"anims/walk ne" = SubResource( 7 )
-"anims/walk nw" = SubResource( 8 )
-"anims/walk se" = SubResource( 9 )
-"anims/walk sw" = SubResource( 10 )
+anims/die = SubResource( 12 )
+anims/exit = SubResource( 13 )
+"anims/still ne" = SubResource( 14 )
+"anims/still nw" = SubResource( 15 )
+"anims/still se" = SubResource( 16 )
+"anims/still sw" = SubResource( 17 )
+"anims/walk ne" = SubResource( 18 )
+"anims/walk nw" = SubResource( 19 )
+"anims/walk se" = SubResource( 20 )
+"anims/walk sw" = SubResource( 11 )

@@ -21,8 +21,6 @@ var pill_coords:Vector2
 var move_cost:float = 0
 var total_cost:float = 1
 
-var win:FuncRef
-
 func _ready():
   self.position = Vector2.ZERO
   grid_size = self.get_used_rect()
@@ -46,7 +44,6 @@ func _ready():
     if child is Player:
       child.position = update_child_pos(child.position, Vector2.ZERO, TILE_TYPE[child.TYPE])
       shortest_path = nav2D.get_simple_path(child.position, map_to_world(goal_coords), false)
-      win = funcref(child, "win")
       child.anim_player.connect("animation_finished", self, "_player_react")
     if child is Pill:
       child.position = update_child_pos(child.position, Vector2.ZERO, TILE_TYPE[child.TYPE])
@@ -55,9 +52,9 @@ func _ready():
       child.position = update_child_pos(child.position, Vector2.ZERO, TILE_TYPE[child.TYPE])
       slab_cost += 3
 
-  var estimated_cost = shortest_path.size() * pow(slab_cost, 1+1/6) / 10
+  var estimated_cost = float(shortest_path.size() * pow(slab_cost, 1+1/6)) / 10.0
 
-  move_cost = UTILS.float_crop(1.0 / float(estimated_cost), 4, UTILS.OPERATION.ROUND)
+  move_cost = UTILS.float_crop(1.0 / estimated_cost, 4, UTILS.OPERATION.ROUND)
 
 
 func get_cell_entity_type(pos:Vector2) -> int:
@@ -104,12 +101,17 @@ func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
 
   if dir != Vector2.ZERO:
     if type == TILE_TYPE.PLAYER:
+      var player:Player = get_cell_nodes(this_grid_pos)[0]
       set_cell_entity_type(this_grid_pos, TILE_TYPE.VOID)
       self.set_cell( this_grid_pos.x, this_grid_pos.y, TILE_TYPE.VOID)
       self.update_dirty_quadrants()
       var cell_type = get_cell_entity_type(new_grid_pos)
       if not [ TILE_TYPE.COLLECTIBLE,  TILE_TYPE.GOAL].has(cell_type) :
         total_cost -= move_cost
+      if total_cost <= 0.0:
+        player.is_lost = true
+        print_debug("LOST IN THE DARKNESS")
+        return this_world_pos
       match cell_type:
         TILE_TYPE.COLLECTIBLE:
           for child in child_container.get_children():
@@ -117,11 +119,9 @@ func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
               child.taken()
           total_cost = 1
         TILE_TYPE.GOAL:
-          for child in child_container.get_children():
-            if child is Player and total_cost > 0:
-              child.is_winning = true
+          if total_cost > 0:
+            player.is_winning = true
         TILE_TYPE.MOVABLE:
-          var player:Player = get_cell_nodes(this_grid_pos)[0]
           var movable:Slab = get_cell_nodes(new_grid_pos)[0]
           var push_dir = this_grid_pos.direction_to(new_grid_pos)
           var futur_pos = new_grid_pos + push_dir
@@ -132,7 +132,6 @@ func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
               set_cell_entity_type(new_grid_pos, TILE_TYPE.EMPTY)
             _:
               return this_world_pos
-
 
 
       self.modulate = Color(total_cost,total_cost,total_cost,1)
@@ -148,3 +147,5 @@ func _player_react(what:String) -> void:
   match what:
     "exit":
       emit_signal("win")
+    "die":
+      emit_signal("lose")
