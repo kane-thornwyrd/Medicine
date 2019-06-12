@@ -113,50 +113,65 @@ margin_right = 132.0
 margin_bottom = 226.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 alignment = 2
 
 [node name="play" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
 margin_right = 132.0
 margin_bottom = 44.0
+focus_neighbour_bottom = NodePath("../options")
+focus_next = NodePath("../options")
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 action_mode = 0
 text = "Play"
 script = SubResource( 2 )
-transition_path = NodePath("../../../../../transition_layer")
+transition_path = NodePath("")
 
 [node name="options" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
 margin_top = 44.0
 margin_right = 132.0
 margin_bottom = 88.0
+focus_neighbour_top = NodePath("../play")
+focus_neighbour_bottom = NodePath("../credits")
+focus_next = NodePath("../credits")
+focus_previous = NodePath("../play")
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 action_mode = 0
 text = "Options"
 script = SubResource( 3 )
-transition_path = NodePath("../../../../../transition_layer")
+transition_path = NodePath("")
 
 [node name="credits" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
 margin_top = 88.0
 margin_right = 132.0
 margin_bottom = 132.0
+focus_neighbour_top = NodePath("../options")
+focus_neighbour_bottom = NodePath("../quit")
+focus_next = NodePath("../quit")
+focus_previous = NodePath("../options")
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 action_mode = 0
 text = "Credits"
 script = SubResource( 4 )
-transition_path = NodePath("../../../../../transition_layer")
+transition_path = NodePath("")
 
 [node name="quit" type="Button" parent="CanvasLayer2/CenterContainer/VBoxContainer/VBoxContainer"]
 margin_top = 132.0
 margin_right = 132.0
 margin_bottom = 176.0
+focus_neighbour_top = NodePath("../credits")
+focus_neighbour_bottom = NodePath("../play")
+focus_next = NodePath("../play")
+focus_previous = NodePath("../credits")
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 action_mode = 0
 text = "Quit"
 script = SubResource( 5 )
-transition_path = NodePath("../../../../../transition_layer")
+transition_path = NodePath("")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )

@@ -1,80 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/room0.gd" type="Script" id=1]
 [ext_resource path="res://assets/tilesets/base_tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/images/pill.svg" type="Texture" id=4]
+[ext_resource path="res://levels/grid.gd" type="Script" id=3]
+[ext_resource path="res://levels/YSort.gd" type="Script" id=4]
+[ext_resource path="res://assets/slab.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/pill.tscn" type="PackedScene" id=7]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends TileMap
-
-enum {VOID, EMPTY, GOAL, PLAYER, COLLECTIBLE}
-
-export var player_path:NodePath
-
-var half_cell_size = self.cell_size / 2
-var grid_size
-
-var grid = {}
-onready var player:KinematicBody2D = self.get_node(player_path)
-
-func _ready():
-  self.position = Vector2.ZERO
-  grid_size = self.get_used_rect()
-
-  for x in range(grid_size.position.x, grid_size.size.x):
-    grid[x] = {}
-    for y in range(grid_size.position.y, grid_size.size.y):
-      var current_cell = self.get_cell(x, y)
-      if current_cell == self.INVALID_CELL :
-        grid[x][y] = self.INVALID_CELL
-#        self.set_cell(x,y,1)
-      elif current_cell >= 0 :
-        match current_cell:
-          2:
-            grid[x][y] = COLLECTIBLE
-          1:
-            grid[x][y] = GOAL
-          0:
-            grid[x][y] = EMPTY
-
-  var player_start_pos = update_child_pos(player.position, Vector2.ZERO, PLAYER)
-  player.position = player_start_pos
-
-func get_cell_entity_type(pos:Vector2):
-  return grid[int(pos.x)][int(pos.y)]
-
-func set_cell_entity_type(pos:Vector2, type:int) -> void:
-  grid[int(pos.x)][int(pos.y)] = type
-
-## Check if cell at direction is vacant
-func is_cell_vacant(this_grid_pos:Vector2, dir:Vector2):
-  var target_grid_pos = world_to_map(this_grid_pos) + dir
-  if not grid.has(int(target_grid_pos.x)) : return false;
-  if not grid[int(target_grid_pos.x)].has(int(target_grid_pos.y)) : return false;
-  return grid[int(target_grid_pos.x)][int(target_grid_pos.y)] != self.INVALID_CELL
-
-
-## Remove node from current cell, add it to the new cell,
-## returns the new world target position
-func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
-
-  var this_grid_pos = world_to_map(this_world_pos)
-  var new_grid_pos = this_grid_pos + dir
-
-  if not type == null:
-    # remove player from current grid location
-    set_cell_entity_type(this_grid_pos, EMPTY)
-
-    # place player on new grid location
-    set_cell_entity_type(new_grid_pos, type)
-
-  var new_world_pos = map_to_world(new_grid_pos) + Vector2(0,32)
-  return new_world_pos
-"
-
-[node name="Node2D" type="Node2D"]
+[node name="room0" type="Node2D"]
 script = ExtResource( 1 )
+player_path = NodePath("nav2D/grid/YSort/player")
+tilemap_path = NodePath("nav2D/grid")
 
 [node name="nav2D" type="Navigation2D" parent="."]
 
@@ -83,22 +20,35 @@ mode = 1
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 128, 64 )
 format = 1
-tile_data = PoolIntArray( -262140, 0, 0, -262139, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 262149, 0, 0, 262150, 0, 0 )
-script = SubResource( 1 )
-player_path = NodePath("player")
+tile_data = PoolIntArray( -131069, 1, 0, -131066, 0, 0, -131065, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, 1, 0, 0, 6, 0, 0, 7, 0, 0, 65537, 0, 0, 65543, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0 )
+script = ExtResource( 3 )
+child_container_path = NodePath("YSort")
+nav2D_path = NodePath("..")
 
-[node name="player" parent="nav2D/grid" instance=ExtResource( 3 )]
+[node name="camera" type="Camera2D" parent="nav2D/grid"]
+position = Vector2( 254.602, 253.469 )
+current = true
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+offset_v = -1.0
+drag_margin_left = 0.01
+drag_margin_right = 0.01
+drag_margin_bottom = 0.01
+
+[node name="YSort" type="YSort" parent="nav2D/grid"]
+script = ExtResource( 4 )
+
+[node name="slab2" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 192.754, 66.2977 )
+
+[node name="slab" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 445.668, 192.754 )
+
+[node name="player" parent="nav2D/grid/YSort" instance=ExtResource( 6 )]
 position = Vector2( 312.22, 305.547 )
-motion/sync_to_physics = false
-grid_path = NodePath("..")
+motion/sync_to_physics = true
 
-[node name="pill" type="Sprite" parent="nav2D/grid"]
-position = Vector2( 445.204, 231.517 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 4 )
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-
-[node name="line2D" type="Line2D" parent="."]
-default_color = Color( 1, 0, 0, 1 )
-texture_mode = 0
+[node name="pill" parent="nav2D/grid/YSort" instance=ExtResource( 7 )]
+position = Vector2( 573.759, 186.689 )
+[connection signal="lose" from="nav2D/grid" to="." method="_on_grid_lose"]
+[connection signal="win" from="nav2D/grid" to="." method="_on_grid_win"]

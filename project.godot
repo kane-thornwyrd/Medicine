@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Pill",
+"language": "GDScript",
+"path": "res://script/pill.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://script/player.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Slab",
+"language": "GDScript",
+"path": "res://assets/slab.gd"
+} ]
 _global_script_class_icons={
-
+"Pill": "",
+"Player": "",
+"Slab": ""
 }
 
 [application]
@@ -25,6 +42,7 @@ config/icon="res://icon.png"
 [autoload]
 
 REG="*res://script/scene_registery.gd"
+UTILS="*res://script/utils.gd"
 
 [display]
 

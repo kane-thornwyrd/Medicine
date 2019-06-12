@@ -12,6 +12,7 @@ func in_trans(action:FuncRef = null) -> void:
   $ColorRect.visible = true
   anim_player.play(\"in\")
   yield(anim_player,\"animation_finished\")
+  $ColorRect.visible = false
   if action: action.call_func();
 
 func out_trans(action:FuncRef = null) -> void:
@@ -43,7 +44,7 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
-shader_param/cutoff = 0.0
+shader_param/cutoff = 1.0
 shader_param/smooth_size = 0.001
 shader_param/color = null
 shader_param/mask = ExtResource( 1 )

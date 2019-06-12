@@ -4,8 +4,8 @@
 [ext_resource path="res://levels/room0.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/insanity.tres" type="Theme" id=3]
 [ext_resource path="res://assets/medical.tres" type="Theme" id=4]
-[ext_resource path="res://assets/transition.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/music/DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/music/DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/transition.tscn" type="PackedScene" id=6]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -58,6 +58,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 mouse_default_cursor_shape = 2
 script = ExtResource( 1 )
+room_path = NodePath("level/level_container/room0")
 
 [node name="level" type="CanvasLayer" parent="."]
 
@@ -67,13 +68,19 @@ anchor_bottom = 1.0
 mouse_filter = 2
 mouse_default_cursor_shape = 2
 
-[node name="level_0" parent="level/level_container" instance=ExtResource( 2 )]
+[node name="room0" parent="level/level_container" instance=ExtResource( 2 )]
+position = Vector2( 257.236, 105.485 )
+player_path = NodePath("../ViewportContainer/Viewport/Camera2D/level_0/nav2D/grid/YSort/player")
+viewport_path = NodePath("..")
+tilemap_path = NodePath("../../../room0/nav2D/grid")
 
 [node name="pause_menu" type="CanvasLayer" parent="."]
+editor/display_folded = true
 layer = 126
 
 [node name="pause_modal" type="Control" parent="pause_menu"]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_default_cursor_shape = 2
@@ -121,7 +128,7 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 4 )
 text = "forfeit"
 script = SubResource( 2 )
-transition_path = NodePath("../../../../../../transition_layer")
+transition_path = NodePath("")
 modal_path = NodePath("../../../..")
 
 [node name="continue" type="Button" parent="pause_menu/pause_modal/modal_screen/VBoxContainer/VBoxContainer"]
@@ -136,10 +143,12 @@ modal_path = NodePath("../../../..")
 
 [node name="death_menu" type="CanvasLayer" parent="."]
 
-[node name="transition_layer" parent="." instance=ExtResource( 5 )]
-layer = 128
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 5 )
 volume_db = -20.0
 autoplay = true
+
+[node name="transition_layer" parent="." instance=ExtResource( 6 )]
+[connection signal="lose" from="level/level_container/room0" to="." method="_on_level_0_lose"]
+[connection signal="player_available" from="level/level_container/room0" to="." method="_on_room0_player_available"]
+[connection signal="win" from="level/level_container/room0" to="." method="_on_level_0_win"]

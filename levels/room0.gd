@@ -1,5 +1,22 @@
 extends Node2D
 
+signal lose
+signal win
+signal player_available(player)
+
+export var player_path:NodePath
+onready var player = get_node(player_path)
+
+export var viewport_path:NodePath
+onready var viewport = get_node(viewport_path)
+
+export var tilemap_path:NodePath
+onready var tilemap = get_node(tilemap_path)
+
+func _ready() -> void:
+  emit_signal("player_available", player)
+
+
 #onready var nav2D:Navigation2D = $nav2D
 #onready var player:KinematicBody2D = $nav2D/grid/player
 #onready var grid:TileMap = $nav2D/grid
@@ -35,3 +52,11 @@ extends Node2D
 #
 #  line.points = new_path
 #  player.path = new_path
+
+
+func _on_grid_win() -> void:
+  emit_signal("win")
+
+
+func _on_grid_lose() -> void:
+  emit_signal("lose")
