@@ -5,7 +5,8 @@ onready var transition_screen = $transition_layer
 
 var rooms = [
   ROOM_REG.get_room("room0"),
-  ROOM_REG.get_room("room1")
+  ROOM_REG.get_room("room1"),
+  ROOM_REG.get_room("room2")
 ]
 
 var room_number:int = 0

@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://levels/room0.gd" type="Script" id=1]
+[ext_resource path="res://assets/tilesets/base_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://levels/grid.gd" type="Script" id=3]
+[ext_resource path="res://levels/YSort.gd" type="Script" id=4]
+[ext_resource path="res://assets/slab.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/pill.tscn" type="PackedScene" id=7]
+
+[node name="room2" type="Node2D"]
+script = ExtResource( 1 )
+player_path = NodePath("../room2/nav2D/grid/YSort/player")
+tilemap_path = NodePath("../room2/nav2D/grid")
+
+[node name="nav2D" type="Navigation2D" parent="."]
+position = Vector2( 156.375, 77.5412 )
+
+[node name="grid" type="TileMap" parent="nav2D"]
+mode = 1
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 128, 64 )
+format = 1
+tile_data = PoolIntArray( -131067, 1, 0, -65531, 0, 0, -65528, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 262150, 0, 0 )
+script = ExtResource( 3 )
+child_container_path = NodePath("../../../room2/nav2D/grid/YSort")
+nav2D_path = NodePath("../../../room2/nav2D")
+
+[node name="YSort" type="YSort" parent="nav2D/grid"]
+script = ExtResource( 4 )
+
+[node name="slab2" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 387.586, 288.09 )
+
+[node name="slab3" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 323.375, 255.459 )
+
+[node name="slab4" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 259.165, 291.248 )
+
+[node name="slab5" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 189.691, 324.932 )
+
+[node name="slab6" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 256.007, 354.406 )
+
+[node name="slab7" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 323.375, 388.09 )
+
+[node name="slab8" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 386.533, 354.406 )
+
+[node name="slab" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( 451.986, 322.061 )
+
+[node name="player" parent="nav2D/grid/YSort" instance=ExtResource( 6 )]
+position = Vector2( 312.22, 305.547 )
+motion/sync_to_physics = true
+
+[node name="pill" parent="nav2D/grid/YSort" instance=ExtResource( 7 )]
+position = Vector2( 452.229, 238.769 )
+[connection signal="lose" from="nav2D/grid" to="." method="_on_grid_lose"]
+[connection signal="win" from="nav2D/grid" to="." method="_on_grid_win"]

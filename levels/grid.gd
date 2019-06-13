@@ -52,7 +52,7 @@ func _ready():
       child.position = update_child_pos(child.position, Vector2.ZERO, TILE_TYPE[child.TYPE])
       slab_cost += 3
 
-  var estimated_cost = float(shortest_path.size() * pow(max(slab_cost,10), 1+1/6)) / 10.0
+  var estimated_cost = float(max(shortest_path.size(),1) * pow(max(slab_cost,10), 1+1/6)) / 10.0
 
   move_cost = UTILS.float_crop(1.0 / estimated_cost, 3, UTILS.OPERATION.CEIL)
 
