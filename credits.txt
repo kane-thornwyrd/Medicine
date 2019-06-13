@@ -18,7 +18,8 @@ Game music: DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC Licensed u
 
 All the rest of art: by Kane Thornwyrd Licensed under Creative Commons Attribution 3.0
 
-Code 100% custom made, licensed under GPL v3.0, for the [url]https://itch.io/jam/puzzlejam[/url] Puzzle Jam [8 Bits to Infinity] by Jean-cédric "Kane Thornwyrd" Thérond
+Code 99% custom made, licensed under GPL v3.0, for the [url]https://itch.io/jam/puzzlejam[/url] Puzzle Jam [8 Bits to Infinity] by Jean-cédric "Kane Thornwyrd" Thérond
+Transition shader code by GDQuest
 Using GODOT 3.1.1 [url]https://godotengine.org/[/url] licensed under the MIT License
 
 

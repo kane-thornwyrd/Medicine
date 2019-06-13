@@ -30,6 +30,8 @@ func _physics_process(delta:float) -> void:
   direction = Vector2()
   speed = 0
 
+
+
 #  for i in range(path.size()) :
 #    target_direction = self.position.direction_to(path[0]).round()
 #    if grid.is_cell_vacant(path[0], target_direction):
@@ -65,16 +67,14 @@ func _physics_process(delta:float) -> void:
     yield(anim_player, "animation_finished")
     is_moving = false
 
-  elif is_lost:
+
+  if is_lost:
     anim_player.play("die")
     yield(anim_player, "animation_finished")
-    self.queue_free()
 
   elif is_winning:
     anim_player.play("exit")
     yield(anim_player, "animation_finished")
-    self.queue_free()
-
 
 
 #func move_along_path(distance:float) -> void:

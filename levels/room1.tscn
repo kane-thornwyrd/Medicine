@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://levels/room0.gd" type="Script" id=1]
 [ext_resource path="res://assets/tilesets/base_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://levels/grid.gd" type="Script" id=3]
 [ext_resource path="res://levels/YSort.gd" type="Script" id=4]
-[ext_resource path="res://assets/slab.tscn" type="PackedScene" id=5]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/pill.tscn" type="PackedScene" id=7]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=5]
 
 [node name="room1" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,12 +12,14 @@ player_path = NodePath("../room1/nav2D/grid/YSort/player")
 tilemap_path = NodePath("../room1/nav2D/grid")
 
 [node name="nav2D" type="Navigation2D" parent="."]
+position = Vector2( 253.534, 109.186 )
 
 [node name="grid" type="TileMap" parent="nav2D"]
 mode = 1
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 128, 64 )
 format = 1
+tile_data = PoolIntArray( -393211, 1, 0, -327675, 0, 0, -262139, 0, 0, -196603, 0, 0, -131067, 0, 0, -65531, 0, 0, 5, 0, 0, 65541, 0, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 327685, 0, 0, 393221, 0, 0, 458757, 0, 0, 524293, 0, 0 )
 script = ExtResource( 3 )
 child_container_path = NodePath("../../../room1/nav2D/grid/YSort")
 nav2D_path = NodePath("../../../room1/nav2D")
@@ -37,17 +37,8 @@ drag_margin_bottom = 0.01
 [node name="YSort" type="YSort" parent="nav2D/grid"]
 script = ExtResource( 4 )
 
-[node name="slab2" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
-position = Vector2( 192.754, 66.2977 )
-
-[node name="slab" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
-position = Vector2( 445.668, 192.754 )
-
-[node name="player" parent="nav2D/grid/YSort" instance=ExtResource( 6 )]
-position = Vector2( 312.22, 305.547 )
+[node name="player" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
+position = Vector2( -192.998, 451.745 )
 motion/sync_to_physics = true
-
-[node name="pill" parent="nav2D/grid/YSort" instance=ExtResource( 7 )]
-position = Vector2( 573.759, 186.689 )
 [connection signal="lose" from="nav2D/grid" to="." method="_on_grid_lose"]
 [connection signal="win" from="nav2D/grid" to="." method="_on_grid_win"]

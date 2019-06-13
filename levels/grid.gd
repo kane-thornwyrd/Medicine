@@ -52,9 +52,9 @@ func _ready():
       child.position = update_child_pos(child.position, Vector2.ZERO, TILE_TYPE[child.TYPE])
       slab_cost += 3
 
-  var estimated_cost = float(shortest_path.size() * pow(slab_cost, 1+1/6)) / 10.0
+  var estimated_cost = float(shortest_path.size() * pow(max(slab_cost,10), 1+1/6)) / 10.0
 
-  move_cost = UTILS.float_crop(1.0 / estimated_cost, 4, UTILS.OPERATION.ROUND)
+  move_cost = UTILS.float_crop(1.0 / estimated_cost, 3, UTILS.OPERATION.CEIL)
 
 
 func get_cell_entity_type(pos:Vector2) -> int:
@@ -108,10 +108,6 @@ func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
       var cell_type = get_cell_entity_type(new_grid_pos)
       if not [ TILE_TYPE.COLLECTIBLE,  TILE_TYPE.GOAL].has(cell_type) :
         total_cost -= move_cost
-      if total_cost <= 0.0:
-        player.is_lost = true
-        print_debug("LOST IN THE DARKNESS")
-        return this_world_pos
       match cell_type:
         TILE_TYPE.COLLECTIBLE:
           for child in child_container.get_children():
@@ -135,6 +131,11 @@ func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
 
 
       self.modulate = Color(total_cost,total_cost,total_cost,1)
+      print_debug("LIGHTNESS REMAINING %s" % total_cost)
+      if total_cost <= 0.03:
+        player.is_lost = true
+        print_debug("LOST IN THE DARKNESS")
+        return this_world_pos
 
   set_cell_entity_type(new_grid_pos, type)
     # place player on new grid location
@@ -144,8 +145,9 @@ func update_child_pos(this_world_pos, dir:Vector2 = Vector2.ZERO, type = null):
   return new_world_pos
 
 func _player_react(what:String) -> void:
+  print_debug("ANIMATION %s" % what)
   match what:
-    "exit":
-      emit_signal("win")
     "die":
       emit_signal("lose")
+    "exit":
+      emit_signal("win")

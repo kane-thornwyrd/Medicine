@@ -14,13 +14,14 @@ player_path = NodePath("nav2D/grid/YSort/player")
 tilemap_path = NodePath("nav2D/grid")
 
 [node name="nav2D" type="Navigation2D" parent="."]
+position = Vector2( 156.375, 77.5412 )
 
 [node name="grid" type="TileMap" parent="nav2D"]
 mode = 1
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 128, 64 )
 format = 1
-tile_data = PoolIntArray( -131069, 1, 0, -131066, 0, 0, -131065, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, 1, 0, 0, 6, 0, 0, 7, 0, 0, 65537, 0, 0, 65543, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0 )
+tile_data = PoolIntArray( -131067, 1, 0, -131064, 0, 0, -131063, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, 3, 0, 0, 8, 0, 0, 9, 0, 0, 65539, 0, 0, 65545, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0 )
 script = ExtResource( 3 )
 child_container_path = NodePath("YSort")
 nav2D_path = NodePath("..")
@@ -29,16 +30,16 @@ nav2D_path = NodePath("..")
 script = ExtResource( 4 )
 
 [node name="slab2" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
-position = Vector2( 192.754, 66.2977 )
+position = Vector2( 318.112, 127.038 )
 
 [node name="slab" parent="nav2D/grid/YSort" instance=ExtResource( 5 )]
-position = Vector2( 445.668, 192.754 )
+position = Vector2( 576.196, 259.956 )
 
 [node name="player" parent="nav2D/grid/YSort" instance=ExtResource( 6 )]
 position = Vector2( 312.22, 305.547 )
 motion/sync_to_physics = true
 
 [node name="pill" parent="nav2D/grid/YSort" instance=ExtResource( 7 )]
-position = Vector2( 573.759, 186.689 )
+position = Vector2( 701.702, 246.137 )
 [connection signal="lose" from="nav2D/grid" to="." method="_on_grid_lose"]
 [connection signal="win" from="nav2D/grid" to="." method="_on_grid_win"]
